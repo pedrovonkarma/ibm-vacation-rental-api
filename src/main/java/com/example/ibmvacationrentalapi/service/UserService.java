@@ -1,6 +1,6 @@
 package com.example.ibmvacationrentalapi.service;
 
-import com.example.ibmvacationrentalapi.domain.User;
+import com.example.ibmvacationrentalapi.domain.UserProfile;
 import com.example.ibmvacationrentalapi.dto.UserDto;
 import com.example.ibmvacationrentalapi.repository.UserRepository;
 import com.example.ibmvacationrentalapi.service.exceptions.ObjectNotFoundException;
@@ -15,19 +15,25 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User insert(User obj){
+    public UserProfile insert(UserProfile obj){
         obj.setId(null);
         obj = userRepository.save(obj);
         return obj;
     }
 
-    public User find(String email){
-        Optional<User> obj = userRepository.findByEmail(email);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado!"));
+    public UserProfile find(String email, String name, String phoneNumber) {
+        UserProfile foundUserProfile = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+
+        if (!foundUserProfile.getName().equals(name) || !foundUserProfile.getPhoneNumber().equals(phoneNumber)) {
+            throw new ObjectNotFoundException("Objeto não encontrado!");
+        }
+
+        return foundUserProfile;
     }
 
-    public User fromDto(UserDto objDto){
-        return new User(objDto.getId(), objDto.getName(), objDto.getEmail(), objDto.getPhoneNumber());
+    public UserProfile fromDto(UserDto objDto){
+        return new UserProfile(objDto.getId(), objDto.getName(), objDto.getEmail(), objDto.getPhoneNumber());
     }
 
 }

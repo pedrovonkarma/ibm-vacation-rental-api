@@ -1,14 +1,13 @@
 package com.example.ibmvacationrentalapi.repository;
 
-import com.example.ibmvacationrentalapi.domain.User;
-import jakarta.transaction.Transactional;
+import com.example.ibmvacationrentalapi.domain.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<UserProfile, Integer> {
 
-    Optional<User> findByEmail(String email);
+    Optional<UserProfile> findByEmail(String email);
 }

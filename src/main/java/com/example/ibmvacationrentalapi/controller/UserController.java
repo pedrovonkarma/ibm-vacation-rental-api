@@ -1,16 +1,14 @@
 package com.example.ibmvacationrentalapi.controller;
 
-import com.example.ibmvacationrentalapi.domain.User;
+import com.example.ibmvacationrentalapi.domain.UserProfile;
 import com.example.ibmvacationrentalapi.dto.UserDto;
 import com.example.ibmvacationrentalapi.service.UserService;
+import com.example.ibmvacationrentalapi.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,22 +19,20 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<Void> signUp(@Validated @RequestBody UserDto userDto){
-        User user = userService.fromDto(userDto);
-        userService.insert(user);
+        UserProfile userProfile = userService.fromDto(userDto);
+        userService.insert(userProfile);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@Validated @RequestBody UserDto userDto){
-        User user = userService.fromDto(userDto);
-        User foundUser = userService.find(user.getEmail());
-        if (foundUser != null) {
+    public ResponseEntity<String> login(@Validated @RequestBody UserDto userDto){
+        UserProfile userProfile = userService.fromDto(userDto);
+        try {
+            UserProfile foundUserProfile = userService.find(userProfile.getEmail(), userProfile.getName(), userProfile.getPhoneNumber());
             return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (ObjectNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Dados incorretos");
         }
     }
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.example.ibmvacationrentalapi.dto;
 
-import com.example.ibmvacationrentalapi.domain.User;
+import com.example.ibmvacationrentalapi.domain.UserProfile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,7 +19,7 @@ public class UserDto implements Serializable {
 
     private String phoneNumber;
 
-    public UserDto(User obj){
+    public UserDto(UserProfile obj){
         id = obj.getId();
         name = obj.getName();
         email = obj.getEmail();
