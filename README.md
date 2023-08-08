@@ -12,6 +12,31 @@ Este repositório contém o backend da aplicação de reservas de casa de tempor
 
 1. Clone este repositório para sua máquina local.
 2. Certifique-se de ter o Java JDK e o Maven instalados.
+   - **Java JDK:** Se você ainda não possui o Java JDK instalado, você pode baixá-lo no site oficial da Oracle ou usar um gerenciador de pacotes, dependendo do sistema operacional que você está usando.
+
+     - **Windows:** Baixe o instalador do Java JDK no site oficial da Oracle: [Oracle Java SE Downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
+     - **macOS:** Você pode usar o Homebrew para instalar o Java JDK:
+       ```bash
+       brew install openjdk
+       ```
+     - **Linux:** Use o gerenciador de pacotes apropriado para a sua distribuição Linux. Por exemplo, para Ubuntu/Debian:
+       ```bash
+       sudo apt-get update
+       sudo apt-get install openjdk-11-jdk
+       ```
+
+   - **Maven:** O Maven é usado para compilar e gerenciar as dependências do projeto. Você pode baixar o Maven no site oficial do Apache Maven ou usar um gerenciador de pacotes.
+
+     - **Windows:** Baixe o arquivo ZIP do Maven no site oficial do Apache Maven: [Apache Maven Download](https://maven.apache.org/download.cgi) e siga as instruções para configurar o PATH do sistema.
+     - **macOS:** Você pode instalar o Maven usando o Homebrew:
+       ```bash
+       brew install maven
+       ```
+     - **Linux:** Use o gerenciador de pacotes apropriado para a sua distribuição Linux. Por exemplo, para Ubuntu/Debian:
+       ```bash
+       sudo apt-get update
+       sudo apt-get install maven
+       ```
 3. Configure as propriedades do banco de dados no arquivo `application.properties`.
 4. Execute o seguinte comando para iniciar a aplicação:
 
