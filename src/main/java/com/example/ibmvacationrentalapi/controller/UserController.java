@@ -24,15 +24,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@Validated @RequestBody UserDto userDto){
-        UserProfile userProfile = userService.fromDto(userDto);
-        try {
-            UserProfile foundUserProfile = userService.find(userProfile.getEmail(), userProfile.getName(), userProfile.getPhoneNumber());
-            return ResponseEntity.ok().build();
-        } catch (ObjectNotFoundException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Dados incorretos");
-        }
-    }
+
 
 }

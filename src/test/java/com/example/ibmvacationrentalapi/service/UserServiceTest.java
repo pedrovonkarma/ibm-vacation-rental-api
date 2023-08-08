@@ -30,7 +30,7 @@ public class UserServiceTest {
 
     @BeforeEach
     public void setup(){
-        UserProfile userProfile = new UserProfile(1, "Joao", "joao@gmail.com", "21912345678");
+        userProfile = new UserProfile(1, "Joao", "joao@gmail.com", "21912345678");
     }
 
     @Test

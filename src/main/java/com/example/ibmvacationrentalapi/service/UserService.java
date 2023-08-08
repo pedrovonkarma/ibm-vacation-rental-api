@@ -4,6 +4,7 @@ import com.example.ibmvacationrentalapi.domain.UserProfile;
 import com.example.ibmvacationrentalapi.dto.UserDto;
 import com.example.ibmvacationrentalapi.repository.UserRepository;
 import com.example.ibmvacationrentalapi.service.exceptions.ObjectNotFoundException;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,10 @@ public class UserService {
 
     public UserProfile insert(UserProfile obj){
         obj.setId(null);
+        Optional<UserProfile> alreadyUser = userRepository.findByEmail(obj.getEmail());
+        if(alreadyUser.isPresent()){
+            throw new ObjectNotFoundException("Usuário já cadastrado!");
+        }
         obj = userRepository.save(obj);
         return obj;
     }

@@ -54,29 +54,6 @@ public class UserControllerTest {
                 .andExpect(status().isCreated());
     }
 
-    @Test
-    public void testSuccessfulLogin() throws Exception {
-        UserProfile userProfile = new UserProfile(1, "joao", "joao@gmail.com", "21912345678");
 
-        when(userService.fromDto(any(UserDto.class))).thenReturn(userProfile);
-        when(userService.find(anyString(), anyString(), anyString())).thenReturn(userProfile);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1,\"nome\":\"joao\",\"email\":\"joao@gmail.com\",\"phoneNumber\":\"21912345678\"}"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void testFailedLogin() throws Exception {
-        when(userService.fromDto(any(UserDto.class))).thenReturn(new UserProfile());
-        when(userService.find(anyString(), anyString(), anyString())).thenThrow(ObjectNotFoundException.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/auth/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"id\":1,\"nome\":\"joao\",\"email\":\"joao@gmail.com\",\"phoneNumber\":\"21912345678\"}"))
-                .andExpect(status().isUnauthorized())
-                .andExpect(content().string("Dados incorretos"));
-    }
 
 }
