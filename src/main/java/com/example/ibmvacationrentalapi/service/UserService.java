@@ -23,7 +23,7 @@ public class UserService {
 
     public UserProfile find(String email, String name, String phoneNumber) {
         UserProfile foundUserProfile = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!"));
+                .orElseThrow(() -> new ObjectNotFoundException("Dados incorretos"));
 
         if (!foundUserProfile.getName().equals(name) || !foundUserProfile.getPhoneNumber().equals(phoneNumber)) {
             throw new ObjectNotFoundException("Objeto não encontrado!");
