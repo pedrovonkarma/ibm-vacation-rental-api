@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {
@@ -53,6 +54,30 @@ public class BookingService {
             .orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
         BookingDto bookingDto = new BookingDto(booking);
         return bookingDto;
+    }
+
+    public BookingDto update(Integer id, BookingDto obj) {
+
+        UserProfile userProfile = userRepository.findByName(obj.getNomeHospede())
+                .orElseThrow(() -> new ObjectNotFoundException("Pessoa não cadastrada"));
+        Booking newBooking = bookingRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Reserva não encontrada"));
+        newBooking.setUserProfile(userProfile);
+        newBooking.setDataInicio(obj.getDataInicio());
+        newBooking.setDataFim(obj.getDataFim());
+        newBooking.setQuantidadePessoas(obj.getQuantidadePessoas());
+        newBooking.setStatus(obj.getStatus());
+        bookingRepository.save(newBooking);
+        return new BookingDto(newBooking);
+
+    }
+
+    public BookingDto delete(Integer id) {
+        Booking newBooking = bookingRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Reserva não encontrada"));
+        newBooking.setStatus("CANCELADA");
+        bookingRepository.save(newBooking);
+        return new BookingDto(newBooking);
     }
 
     public Booking fromDto(BookingDto objDto){

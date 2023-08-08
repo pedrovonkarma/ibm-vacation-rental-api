@@ -37,4 +37,15 @@ public class BookingController {
         return ResponseEntity.ok().body(booking);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BookingDto> update(@PathVariable Integer id, @RequestBody BookingDto obj) {
+        BookingDto newBooking = bookingService.update(id, obj);
+        return ResponseEntity.ok().body(newBooking);
+    }
+
+    @DeleteMapping("/{id}/cancelar")
+    public ResponseEntity<BookingDto> delete(@PathVariable Integer id){
+        BookingDto canceledBooking = bookingService.delete(id);
+        return ResponseEntity.ok().body(canceledBooking);
+    }
 }
