@@ -42,13 +42,7 @@ public class BookingService {
         List<Booking> list = bookingRepository.findAll();
         List<BookingDto> dtoList = new ArrayList<>();
         for (Booking booking : list) {
-            BookingDto dto = new BookingDto();
-            dto.setId(booking.getId());
-            dto.setNomeHospede(booking.getUserProfile().getName());
-            dto.setDataInicio(booking.getDataInicio());
-            dto.setDataFim(booking.getDataFim());
-            dto.setQuantidadePessoas(booking.getQuantidadePessoas());
-            dto.setStatus(booking.getStatus());
+            BookingDto dto = new BookingDto(booking);
             dtoList.add(dto);
         }
         return dtoList;
